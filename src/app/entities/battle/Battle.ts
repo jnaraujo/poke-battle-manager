@@ -1,19 +1,27 @@
+import { League } from "../league/League";
 import { Trainer } from "../trainer/Trainer";
 
 export class Battle {
   _id: string;
   _trainer1: Trainer;
   _trainer2: Trainer;
+  _league: League;
   _winner: Trainer | null;
   _loser: Trainer | null;
   _createdAt: Date | null;
   _startedAt: Date | null;
   _finishedAt: Date | null;
 
-  constructor(props: { id: string; trainer1: Trainer; trainer2: Trainer }) {
+  constructor(props: {
+    id: string;
+    trainer1: Trainer;
+    trainer2: Trainer;
+    league: League;
+  }) {
     this._id = props.id;
     this._trainer1 = props.trainer1;
     this._trainer2 = props.trainer2;
+    this._league = props.league;
 
     this._winner = null;
     this._loser = null;
@@ -106,5 +114,13 @@ export class Battle {
 
   set finishedAt(finishedAt: Date | null) {
     this._finishedAt = finishedAt;
+  }
+
+  get league() {
+    return this._league;
+  }
+
+  set league(league: League) {
+    this._league = league;
   }
 }
