@@ -1,35 +1,26 @@
+import crypto from "node:crypto";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CreateBattleUseCase } from "./CreateBattleUseCase";
 import { InMemoryBattleRepository } from "../../__tests__/repositories/InMemoryBattleRepository";
 import { InMemoryTrainerRepository } from "../../__tests__/repositories/InMemoryTrainerRepository";
 import { InMemoryPokemonRepository } from "../../__tests__/repositories/InMemoryPokemonRepository";
-import { CreateTrainerUseCase } from "../trainer/CreateTrainerUseCase";
-import { AddPokemonUseCase } from "../pokemon/AddPokemonUseCase";
 import { BattleStats } from "../../value_objects/BattleStats";
 import { Trainer } from "../../entities/trainer/Trainer";
 import { League } from "../../entities/league/League";
+import { Pokemon } from "../../entities/pokemon/Pokemon";
 
 describe("CreateBattleUseCase", () => {
   let createBattleUseCase: CreateBattleUseCase;
-  let createTrainerUseCase: CreateTrainerUseCase;
-  let addPokemonUseCase: AddPokemonUseCase;
   let inMemoryBattleRepository: InMemoryBattleRepository;
-  let inMemoryTrainerRepository: InMemoryTrainerRepository;
-  let inMemoryPokemonRepository: InMemoryPokemonRepository;
   let trainer1: Trainer;
   let trainer2: Trainer;
 
   beforeEach(async () => {
     inMemoryBattleRepository = new InMemoryBattleRepository();
-    inMemoryTrainerRepository = new InMemoryTrainerRepository();
-    inMemoryPokemonRepository = new InMemoryPokemonRepository();
 
     createBattleUseCase = new CreateBattleUseCase(inMemoryBattleRepository);
-    createTrainerUseCase = new CreateTrainerUseCase(inMemoryTrainerRepository);
-
-    addPokemonUseCase = new AddPokemonUseCase(inMemoryPokemonRepository);
-
-    trainer1 = await createTrainerUseCase.execute({
+    trainer1 = new Trainer({
+      id: crypto.randomUUID(),
       name: "Ash",
       city: "Pallet",
       age: 10,
@@ -45,24 +36,26 @@ describe("CreateBattleUseCase", () => {
     });
 
     for (let i = 0; i < 3; i++) {
-      const pokemon = await addPokemonUseCase.execute({
-        name: `Pikachu ${i}`,
-        type: ["Electric"],
-        level: 1,
-        trainerID: trainer1.id,
-        life: 100,
-        moves: [],
-        stats: new BattleStats({
-          attack: 100,
-          defense: 100,
-          speed: 100,
-        }),
-      });
-
-      trainer1.pokemons.push(pokemon);
+      trainer1.pokemons.push(
+        new Pokemon({
+          id: crypto.randomUUID(),
+          name: `Pikachu ${i}`,
+          type: ["Electric"],
+          level: 1,
+          trainerID: trainer1.id,
+          life: 100,
+          moves: [],
+          stats: new BattleStats({
+            attack: 100,
+            defense: 100,
+            speed: 100,
+          }),
+        })
+      );
     }
 
-    trainer2 = await createTrainerUseCase.execute({
+    trainer2 = new Trainer({
+      id: crypto.randomUUID(),
       name: "Misty",
       city: "Cerulean",
       age: 10,
@@ -78,27 +71,35 @@ describe("CreateBattleUseCase", () => {
     });
 
     for (let i = 0; i < 3; i++) {
-      const pokemon = await addPokemonUseCase.execute({
-        name: `Pikachu ${i}`,
-        type: ["Electric"],
-        level: 1,
-        trainerID: trainer2.id,
-        life: 100,
-        moves: [],
-        stats: new BattleStats({
-          attack: 100,
-          defense: 100,
-          speed: 100,
-        }),
-      });
-
-      trainer2.pokemons.push(pokemon);
+      trainer2.pokemons.push(
+        new Pokemon({
+          id: crypto.randomUUID(),
+          name: `Pikachu ${i}`,
+          type: ["Electric"],
+          level: 1,
+          trainerID: trainer2.id,
+          life: 100,
+          moves: [],
+          stats: new BattleStats({
+            attack: 100,
+            defense: 100,
+            speed: 100,
+          }),
+        })
+      );
     }
   });
+
   it("should create a battle", async () => {
     const battle = await createBattleUseCase.execute({
       trainer1,
       trainer2,
+      league: new League({
+        id: "123",
+        name: "Kanto",
+        prize: 1000,
+        registrationFee: 100,
+      }),
     });
 
     expect(battle).toBeDefined();
@@ -115,6 +116,12 @@ describe("CreateBattleUseCase", () => {
       createBattleUseCase.execute({
         trainer1,
         trainer2,
+        league: new League({
+          id: "123",
+          name: "Kanto",
+          prize: 1000,
+          registrationFee: 100,
+        }),
       })
     ).rejects.toThrowError("Trainers must have at least 3 pokemons to battle");
   });
@@ -131,6 +138,12 @@ describe("CreateBattleUseCase", () => {
       createBattleUseCase.execute({
         trainer1,
         trainer2,
+        league: new League({
+          id: "123",
+          name: "Kanto",
+          prize: 1000,
+          registrationFee: 100,
+        }),
       })
     ).rejects.toThrowError("Trainers must be from the same league to battle");
   });
@@ -140,6 +153,12 @@ describe("CreateBattleUseCase", () => {
       createBattleUseCase.execute({
         trainer1,
         trainer2: trainer1,
+        league: new League({
+          id: "123",
+          name: "Kanto",
+          prize: 1000,
+          registrationFee: 100,
+        }),
       })
     ).rejects.toThrowError("Trainers must be different to battle");
   });
