@@ -7,10 +7,10 @@ export class InMemoryPokemonRepository implements PokemonRepository {
   async findByTrainerId(trainerId: string): Promise<Pokemon[]> {
     return this.pokemons.filter((pokemon) => pokemon.trainerID === trainerId);
   }
-  async getAll(): Promise<Pokemon[]> {
+  async findAll(): Promise<Pokemon[]> {
     return this.pokemons;
   }
-  async getById(id: string): Promise<Pokemon | null> {
+  async findById(id: string): Promise<Pokemon | null> {
     return this.pokemons.find((pokemon) => pokemon.id === id) || null;
   }
   async save(entity: Pokemon): Promise<void> {
