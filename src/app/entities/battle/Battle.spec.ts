@@ -34,11 +34,6 @@ describe("Battle", () => {
       id: "1",
       trainer1,
       trainer2,
-      createdAt: new Date(),
-      startedAt: null,
-      finishedAt: null,
-      winner: null,
-      loser: null,
     });
   });
 
@@ -72,11 +67,6 @@ describe("Battle", () => {
       id: "2",
       trainer1,
       trainer2,
-      createdAt: new Date(),
-      startedAt: null,
-      finishedAt: null,
-      winner: null,
-      loser: null,
     });
 
     expect(battle.equals(battle2)).toBe(false);

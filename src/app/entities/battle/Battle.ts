@@ -10,24 +10,16 @@ export class Battle {
   _startedAt: Date | null;
   _finishedAt: Date | null;
 
-  constructor(props: {
-    id: string;
-    trainer1: Trainer;
-    trainer2: Trainer;
-    winner: Trainer | null;
-    loser: Trainer | null;
-    createdAt: Date | null;
-    startedAt: Date | null;
-    finishedAt: Date | null;
-  }) {
+  constructor(props: { id: string; trainer1: Trainer; trainer2: Trainer }) {
     this._id = props.id;
     this._trainer1 = props.trainer1;
     this._trainer2 = props.trainer2;
-    this._createdAt = props.createdAt;
-    this._startedAt = props.startedAt;
-    this._finishedAt = props.finishedAt;
-    this._winner = props.winner;
-    this._loser = props.loser;
+
+    this._winner = null;
+    this._loser = null;
+    this._createdAt = null;
+    this._startedAt = null;
+    this._finishedAt = null;
   }
 
   // Methods
