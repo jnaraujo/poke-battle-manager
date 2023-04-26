@@ -1,7 +1,7 @@
 import { League } from "../league/League";
 import { Trainer } from "../trainer/Trainer";
 
-export class Event {
+export class Tournament {
   _id: string;
   _name: string;
   _description: string;
@@ -43,8 +43,8 @@ export class Event {
     return this._finishedAt !== null;
   }
 
-  equals(event: Event) {
-    return this._id === event.id;
+  equals(tournament: Tournament) {
+    return this._id === tournament.id;
   }
 
   // getters and setters
