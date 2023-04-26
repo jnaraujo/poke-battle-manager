@@ -19,7 +19,7 @@ describe("CreateTrainerUseCase", () => {
       level: 1,
       pokemons: [],
       items: [],
-      league: "123",
+      league: null,
     });
 
     const response = await inMemoryTrainerRepository.findById(trainer.id);

@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { CreateBattleUseCase } from "../trainer/CreateBattleUseCase";
+import { CreateBattleUseCase } from "./CreateBattleUseCase";
 import { InMemoryBattleRepository } from "../../__tests__/repositories/InMemoryBattleRepository";
 import { InMemoryTrainerRepository } from "../../__tests__/repositories/InMemoryTrainerRepository";
 import { InMemoryPokemonRepository } from "../../__tests__/repositories/InMemoryPokemonRepository";
-import { CreateTrainerUseCase } from "./CreateTrainerUseCase";
+import { CreateTrainerUseCase } from "../trainer/CreateTrainerUseCase";
 import { AddPokemonUseCase } from "../pokemon/AddPokemonUseCase";
 import { BattleStats } from "../../value_objects/BattleStats";
 import { Trainer } from "../../entities/trainer/Trainer";
+import { League } from "../../entities/league/League";
 
 describe("CreateBattleUseCase", () => {
   let createBattleUseCase: CreateBattleUseCase;
@@ -35,11 +36,16 @@ describe("CreateBattleUseCase", () => {
       level: 1,
       pokemons: [],
       items: [],
-      league: "123",
+      league: new League({
+        id: "123",
+        name: "Kanto",
+        prize: 1000,
+        registrationFee: 100,
+      }),
     });
 
     for (let i = 0; i < 3; i++) {
-      await addPokemonUseCase.execute({
+      const pokemon = await addPokemonUseCase.execute({
         name: `Pikachu ${i}`,
         type: ["Electric"],
         level: 1,
@@ -52,6 +58,8 @@ describe("CreateBattleUseCase", () => {
           speed: 100,
         }),
       });
+
+      trainer1.pokemons.push(pokemon);
     }
 
     trainer2 = await createTrainerUseCase.execute({
@@ -61,11 +69,16 @@ describe("CreateBattleUseCase", () => {
       level: 1,
       pokemons: [],
       items: [],
-      league: "123",
+      league: new League({
+        id: "123",
+        name: "Kanto",
+        prize: 1000,
+        registrationFee: 100,
+      }),
     });
 
     for (let i = 0; i < 3; i++) {
-      await addPokemonUseCase.execute({
+      const pokemon = await addPokemonUseCase.execute({
         name: `Pikachu ${i}`,
         type: ["Electric"],
         level: 1,
@@ -78,6 +91,8 @@ describe("CreateBattleUseCase", () => {
           speed: 100,
         }),
       });
+
+      trainer2.pokemons.push(pokemon);
     }
   });
   it("should create a battle", async () => {
@@ -105,7 +120,12 @@ describe("CreateBattleUseCase", () => {
   });
 
   it("should not create a battle if trainers are from different leagues", async () => {
-    trainer2.league = "456";
+    trainer2.league = new League({
+      id: "456",
+      name: "League 2",
+      prize: 100,
+      registrationFee: 10,
+    });
 
     await expect(
       createBattleUseCase.execute({

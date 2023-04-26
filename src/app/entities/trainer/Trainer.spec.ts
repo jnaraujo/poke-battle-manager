@@ -40,7 +40,7 @@ describe("Trainer", () => {
           increaseSpeed: 0,
         }),
       ],
-      league: "Kanto",
+      league: null,
     });
   });
 

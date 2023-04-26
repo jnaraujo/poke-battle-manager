@@ -1,6 +1,7 @@
 import { Battle } from "../../entities/battle/Battle";
 import { Trainer } from "../../entities/trainer/Trainer";
 import { BattleRepository } from "../../repositories/BattleRepository";
+import crypto from "node:crypto";
 
 interface CreateBattleRequest {
   trainer1: Trainer;
@@ -14,7 +15,11 @@ export class CreateBattleUseCase {
       throw new Error("Trainers must have at least 3 pokemons to battle");
     }
 
-    if (trainer1.league !== trainer2.league) {
+    if (!trainer1.league || !trainer2.league) {
+      throw new Error("Trainers must be in a league to battle");
+    }
+
+    if (trainer1.league.id !== trainer2.league.id) {
       throw new Error("Trainers must be from the same league to battle");
     }
 

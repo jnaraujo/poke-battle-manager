@@ -1,5 +1,6 @@
 import { BattleStats } from "../../value_objects/BattleStats";
 import { Item } from "../item/Item";
+import { League } from "../league/League";
 import { Pokemon } from "../pokemon/Pokemon";
 
 export class Trainer {
@@ -10,7 +11,7 @@ export class Trainer {
   private _level: number;
   private _pokemons: Pokemon[];
   private _items: Item[];
-  private _league: string;
+  private _league: League | null;
 
   constructor(props: {
     id: string;
@@ -20,7 +21,7 @@ export class Trainer {
     level: number;
     pokemons: Pokemon[];
     items: Item[];
-    league: string;
+    league: League | null;
   }) {
     this._id = props.id;
     this._name = props.name;
@@ -120,11 +121,11 @@ export class Trainer {
     this._items = items;
   }
 
-  get league(): string {
+  get league() {
     return this._league;
   }
 
-  set league(league: string) {
+  set league(league: League | null) {
     this._league = league;
   }
 }

@@ -1,4 +1,5 @@
 import { Item } from "../../entities/item/Item";
+import { League } from "../../entities/league/League";
 import { Pokemon } from "../../entities/pokemon/Pokemon";
 import { Trainer } from "../../entities/trainer/Trainer";
 import { TrainerRepository } from "../../repositories/Trainer";
@@ -11,7 +12,7 @@ interface CreateTrainerRequest {
   level: number;
   pokemons: Pokemon[];
   items: Item[];
-  league: string;
+  league: League | null;
 }
 export class CreateTrainerUseCase {
   constructor(private trainerRepository: TrainerRepository) {}
