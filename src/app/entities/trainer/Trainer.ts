@@ -3,14 +3,14 @@ import { Item } from "../item/Item";
 import { Pokemon } from "../pokemon/Pokemon";
 
 export class Trainer {
-  _id: string;
-  _name: string;
-  _city: string;
-  _age: number;
-  _level: number;
-  _pokemons: Pokemon[];
-  _items: Item[];
-  _league: string;
+  private _id: string;
+  private _name: string;
+  private _city: string;
+  private _age: number;
+  private _level: number;
+  private _pokemons: Pokemon[];
+  private _items: Item[];
+  private _league: string;
 
   constructor(props: {
     id: string;
@@ -108,7 +108,7 @@ export class Trainer {
     return this._pokemons;
   }
 
-  set pokemon(pokemon: Pokemon[]) {
+  set pokemons(pokemon: Pokemon[]) {
     this._pokemons = pokemon;
   }
 
