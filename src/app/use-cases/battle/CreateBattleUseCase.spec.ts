@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { CreateBattleUseCase } from "./CreateBattleUseCase";
+import { CreateBattleUseCase } from "../trainer/CreateBattleUseCase";
 import { InMemoryBattleRepository } from "../../__tests__/repositories/InMemoryBattleRepository";
 import { InMemoryTrainerRepository } from "../../__tests__/repositories/InMemoryTrainerRepository";
 import { InMemoryPokemonRepository } from "../../__tests__/repositories/InMemoryPokemonRepository";
 import { CreateTrainerUseCase } from "./CreateTrainerUseCase";
-import { AddPokemonUseCase } from "./AddPokemonUseCase";
+import { AddPokemonUseCase } from "../pokemon/AddPokemonUseCase";
 import { BattleStats } from "../../value_objects/BattleStats";
 import { Trainer } from "../../entities/trainer/Trainer";
 
