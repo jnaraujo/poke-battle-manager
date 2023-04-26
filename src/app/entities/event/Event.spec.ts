@@ -20,7 +20,7 @@ describe("Event", () => {
       level: 1,
       pokemons: [],
       items: [],
-      league: "Kanto",
+      league: null,
     });
 
     trainer2 = new Trainer({
@@ -31,13 +31,12 @@ describe("Event", () => {
       level: 1,
       pokemons: [],
       items: [],
-      league: "Kanto",
+      league: null,
     });
 
     league = new League({
       id: "1",
-      battles: [battle],
-      trainers: [trainer1, trainer2],
+      name: "Poke League",
       registrationFee: 100,
       prize: 1000,
     });
