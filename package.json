@@ -1,0 +1,26 @@
+{
+  "name": "poke-battle-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup src",
+    "dev": "tsx watch src/infra/http/app.ts",
+    "test": "vitest",
+    "start": "node dist/infra/http/app.js"
+  },
+  "author": "jnaraujo",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "*",
+    "vitest": "^0.30.1"
+  }
+}
