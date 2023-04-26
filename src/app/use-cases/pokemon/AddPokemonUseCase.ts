@@ -25,7 +25,7 @@ export class AddPokemonUseCase {
     type,
     stats,
     moves,
-  }: AddPokemonRequest): Promise<void> {
+  }: AddPokemonRequest): Promise<Pokemon> {
     const pokemon = new Pokemon({
       id: crypto.randomUUID(),
       trainerID: trainerID,
@@ -46,5 +46,7 @@ export class AddPokemonUseCase {
     }
 
     await this.pokemonRepository.save(pokemon);
+
+    return pokemon;
   }
 }

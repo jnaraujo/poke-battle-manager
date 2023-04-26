@@ -13,7 +13,7 @@ describe("AddPokemonUseCase", () => {
   });
 
   it("should add a pokemon", async () => {
-    await addPokemonUseCase.execute({
+    const pikachu = await addPokemonUseCase.execute({
       name: "Pikachu",
       level: 25,
       life: 100,
