@@ -1,4 +1,4 @@
-import { League } from "../entities/league/League";
+import { Battle } from "../entities/battle/Battle";
 import { Repository } from "./Repository";
 
-export interface LeagueRepository extends Repository<League> {}
+export interface BattleRepository extends Repository<Battle> {}
