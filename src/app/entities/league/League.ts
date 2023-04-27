@@ -9,6 +9,8 @@ export class League {
   _finishedAt: Date | null;
   _registrationFee: number;
   _prize: number;
+  _trainers: Trainer[];
+  _battles: Battle[];
 
   constructor(props: {
     id: string;
@@ -20,6 +22,9 @@ export class League {
     this._registrationFee = props.registrationFee;
     this._prize = props.prize;
     this._name = props.name;
+
+    this._trainers = [];
+    this._battles = [];
 
     this._createdAt = null;
     this._startedAt = null;
@@ -92,5 +97,13 @@ export class League {
 
   set prize(value: number) {
     this._prize = value;
+  }
+
+  get trainers(): Trainer[] {
+    return this._trainers;
+  }
+
+  set trainers(value: Trainer[]) {
+    this._trainers = value;
   }
 }
