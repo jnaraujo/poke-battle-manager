@@ -11,18 +11,13 @@ export class Tournament {
   _trainers: Trainer[];
   _leagues: League[];
 
-  constructor(props: {
-    id: string;
-    name: string;
-    description: string;
-    trainers: Trainer[];
-    leagues: League[];
-  }) {
+  constructor(props: { id: string; name: string; description: string }) {
     this._id = props.id;
     this._name = props.name;
     this._description = props.description;
-    this._trainers = props.trainers;
-    this._leagues = props.leagues;
+
+    this._trainers = [];
+    this._leagues = [];
 
     this._createdAt = null;
     this._startedAt = null;
@@ -111,5 +106,13 @@ export class Tournament {
 
   set battles(battles: League[]) {
     this._leagues = battles;
+  }
+
+  get leagues() {
+    return this._leagues;
+  }
+
+  set leagues(leagues: League[]) {
+    this._leagues = leagues;
   }
 }

@@ -9,7 +9,6 @@ describe("Tournament", () => {
   let league: League;
   let trainer1: Trainer;
   let trainer2: Trainer;
-  let battle: Battle;
 
   beforeEach(() => {
     trainer1 = new Trainer({
@@ -46,9 +45,10 @@ describe("Tournament", () => {
       name: "Poke Global Tournament",
       description:
         "Poke Global Tournament is a global tournament for all trainers",
-      leagues: [league],
-      trainers: [trainer1, trainer2],
     });
+
+    tournament.leagues = [league];
+    tournament.trainers = [trainer1, trainer2];
   });
 
   it("should start an tournament", () => {
@@ -78,9 +78,9 @@ describe("Tournament", () => {
       name: "Poke Global Tournament",
       description:
         "Poke Global Tournament is a global tournament for all trainers",
-      leagues: [league],
-      trainers: [trainer1, trainer2],
     });
+    tournament2.leagues = [league];
+    tournament2.trainers = [trainer1, trainer2];
 
     expect(tournament.equals(tournament2)).toBeTruthy();
   });
@@ -91,9 +91,9 @@ describe("Tournament", () => {
       name: "Poke Global Tournament",
       description:
         "Poke Global Tournament is a global tournament for all trainers",
-      leagues: [league],
-      trainers: [trainer1, trainer2],
     });
+    tournament2.leagues = [league];
+    tournament2.trainers = [trainer1, trainer2];
 
     expect(tournament.equals(tournament2)).toBeFalsy();
   });
